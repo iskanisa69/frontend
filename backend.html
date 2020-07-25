@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend</title>
+    <script type="text/javascript">
+        function Maze(){
+
+            var table = document.getElementById('tbl_maze');
+            var maze_value = document.getElementById('maze').value;
+            var nilai = maze_value / 4 ;
+            /*
+            4n - 1 = S
+            4n= S + 1
+            n = S + 1 / 4
+            */
+           if(nilai < 1){
+                alert("harus memenuhi rumus 4n-1");
+                return false;
+
+           }
+            var kanan_kiri = 0;
+            if(maze_value!='' && maze_value > 0){
+                for(i=1;i<=maze_value;i++){
+                    var row = table.insertRow(i-1);
+                        for(j=1;j<=maze_value;j++){
+                         var cell = row.insertCell(j-1);
+                            if(i%2==0){
+                               
+                                if(j==1||j==maze_value){
+                                    cell.innerHTML="@";
+                                }else{
+                                    cell.innerHTML=" ";
+                                }
+                            }else {
+                                if((kanan_kiri==0 && j==2) || kanan_kiri==1 && j==maze_value-1){
+                                    cell.innerHTML=" ";
+
+                                }else{
+                                    cell.innerHTML="@";
+                                }
+                                    
+                               
+                            }
+                        }
+                        
+                    if(i%2==0){
+
+                        if(kanan_kiri==0){
+                            kanan_kiri=1;
+                        }else{
+                            kanan_kiri=0;
+                        }
+                        
+                    }
+                }
+            }else{
+                alert("please inputan harus lebih dari 0");
+            }
+           
+            
+        }
+        function DelMaze(){
+            var maze_value = document.getElementById('maze').value;
+            for(i=0;i<maze_value;i++){  
+                document.getElementById("tbl_maze").deleteRow(0);
+            }
+        } 
+    </script>
+  
+</head>
+<body>
+    
+        <table name="tbl_maze" id="tbl_maze">
+
+            <input type="text" id="maze" value="0">
+            <button type="button" onClick="Maze();">Go</button>
+            <button type="button" onClick="DelMaze();">Clear</button>
+        </table>
+       
+   
+   
+        
+
+  
+
+</body>
+</html>
